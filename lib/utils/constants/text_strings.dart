@@ -6,6 +6,7 @@ class TTexts {
   static const String submit = "Submit";
   static const String appName = "T-Store";
   static const String tContinue = "Continue";
+  static const String viewAll = "View all";
 
   // -- OnBoarding Texts
   static const String onBoardingTitle1 = "Choose your product";
@@ -66,4 +67,9 @@ class TTexts {
   // -- Home
   static const String homeAppbarTitle = "Good day for shopping";
   static const String homeAppbarSubTitle = "Taimoor Sikander";
+  static const String homeSearchPlaceholder = "Search in Store";
+  static const String homePopularCategories = "Popular Categories";
+
+  // -- Category
+  static const String categoryShoes = "Shoes";
 }
