@@ -72,4 +72,7 @@ class TTexts {
 
   // -- Category
   static const String categoryShoes = "Shoes";
+
+  // Product Details
+  static const String productDetails = "Green Nike Air Shoes";
 }
