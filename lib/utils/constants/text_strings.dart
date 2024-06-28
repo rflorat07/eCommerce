@@ -69,10 +69,14 @@ class TTexts {
   static const String homeAppbarSubTitle = "Taimoor Sikander";
   static const String homeSearchPlaceholder = "Search in Store";
   static const String homePopularCategories = "Popular Categories";
+  static const String homePopularProducts = "Popular Products";
 
   // -- Category
   static const String categoryShoes = "Shoes";
 
   // Product Details
   static const String productDetails = "Green Nike Air Shoes";
+
+  // Store
+  static const String featuredBrands = "Featured Brands";
 }

@@ -36,6 +36,7 @@ class TImages {
   // -- Category Icons
   static const String sportIcon =
       "assets/icons/categories/icons8-bowling-64.png";
+  static const String clothIcon = "assets/icons/categories/cloth-icon.png";
 
 // -- Banners
   static const String promoBanner1 = "assets/images/banners/promo-banner-1.png";

@@ -7,19 +7,21 @@ import 'package:t_store/utils/device/device_utility.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TSearchContainer extends StatelessWidget {
-  const TSearchContainer({
-    super.key,
-    this.onTap,
-    required this.text,
-    this.showBorder = true,
-    this.showBackground = true,
-    this.icon = Iconsax.search_normal,
-  });
+  const TSearchContainer(
+      {super.key,
+      this.onTap,
+      required this.text,
+      this.showBorder = true,
+      this.showBackground = true,
+      this.icon = Iconsax.search_normal,
+      this.padding =
+          const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace)});
 
   final String text;
   final IconData? icon;
   final Function()? onTap;
   final bool showBackground, showBorder;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class TSearchContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+        padding: padding,
         child: Container(
           width: TDeviceUtils.getScreenWidth(),
           padding: const EdgeInsets.all(TSizes.md),
