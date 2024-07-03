@@ -48,6 +48,7 @@ flutter:
   assets:
     - assets/logos/
     - assets/icons/brands/
+    - assets/images/user/
     - assets/images/banners/
     - assets/icons/categories/
     - assets/images/products/
