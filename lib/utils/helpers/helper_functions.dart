@@ -13,6 +13,8 @@ class THelperFunctions {
       return Colors.blue;
     } else if (value == 'Indigo') {
       return Colors.indigo;
+    } else if (value == 'Yellow') {
+      return Colors.yellow;
     }
     return null;
   }
