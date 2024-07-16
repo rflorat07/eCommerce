@@ -51,4 +51,9 @@ class TImages {
   static const String productImage2 = "assets/images/products/nike-shoes.png";
   static const String productImage3 =
       "assets/images/products/product-jacket.jpg";
+
+  // -- Payment Methods
+  static const String paypal = "assets/icons/payment_methods/paypal.png";
+  static const String successfulPaymentIcon =
+      "assets/icons/payment_methods/successful.png";
 }
