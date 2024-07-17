@@ -1,6 +1,8 @@
-# t_store
+# Professional Flutter E-Commerce App with Firebase as Backend 2024
 
-A new Flutter project.
+[Coding With T - Complete E-Commerce App ](https://www.youtube.com/playlist?list=PL5jb9EteFAOAusKTSuJ5eRl1BapQmMDT6)
 
-# flutter pub run flutter_native_splash:create --path=splash.yaml
+```
+1. flutter pub run flutter_native_splash:create --path=splash.yaml 
+```
 
