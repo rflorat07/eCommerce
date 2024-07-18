@@ -99,6 +99,7 @@ class TProductCardVertical extends StatelessWidget {
                   child: TProductPriceText(price: '35.5'),
                 ),
 
+                /// -- Add to Cart Button
                 Container(
                   decoration: const BoxDecoration(
                     color: TColors.dark,
