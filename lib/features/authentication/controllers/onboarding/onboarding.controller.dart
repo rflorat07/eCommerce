@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:t_store/features/authentication/screens/login/login.dart';
 
 class OnBoardingController extends GetxController {
@@ -17,6 +19,15 @@ class OnBoardingController extends GetxController {
 
   void nextPage() {
     if (currentPageIndex.value == 2) {
+      final deviceStorage = GetStorage();
+
+      if (kDebugMode) {
+        print('=========== GET STORAGE ==========');
+        print(deviceStorage.read('IsFirstTime'));
+      }
+
+      deviceStorage.write('IsFirstTime', false);
+
       Get.offAll(() => const LoginScreen());
     } else {
       int page = currentPageIndex.value + 1;
