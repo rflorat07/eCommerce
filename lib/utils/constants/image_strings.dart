@@ -18,14 +18,10 @@ class TImages {
       "assets/images/on_boarding_images/sammy-line-delivering.gif";
 
   // -- Animations
-  static const String productsIllustration =
-      "assets/images/animation/sammy-line-workout.gif";
-  static const String productsSaleIllustration =
-      "assets/images/animation/sammy-line-sale.png";
   static const String staticSuccessIllustration =
       "assets/images/animation/sammy-line-man-and-woman-high-fiving-each-other.png";
   static const String deliveredInPlaneIllustration =
-      "assets/images/animation/sammy-line-come-back-latter.png";
+      "assets/images/animation/sammy-line-come-back-later.png";
   static const String deliveredEmailIllustration =
       "assets/images/animation/sammy-line-man-receives-a-mail.png";
   static const String verifyIllustration =
