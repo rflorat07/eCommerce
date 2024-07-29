@@ -28,7 +28,7 @@ class AuthenticationRepository extends GetxController {
 
   /// -- Function to Show Relevant Screen
   screenRedirect() async {
-    User? user = _auth.currentUser;
+    final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
         Get.offAll(() => const NavigationMenu());
@@ -44,7 +44,26 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  ///[EmailAuthentication] - REGISTER
+  /// [EmailAuthentication] - LOGIN
+  Future<UserCredential> loginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthExceptions(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatExceptions();
+    } on PlatformException catch (e) {
+      throw TPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
+    }
+  }
+
+  /// [EmailAuthentication] - REGISTER
   Future<UserCredential> registerWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -63,7 +82,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  ///[EmailVerification] - Mail verification
+  /// [EmailVerification] - Mail verification
   Future<void> sendEmailVerification() async {
     try {
       return _auth.currentUser?.sendEmailVerification();
@@ -80,7 +99,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  ///[ForgotPassword] - ForgotPassword
+  /// [ForgotPassword] - ForgotPassword
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
@@ -97,7 +116,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  ///[LogOutUser] - LogOut
+  /// [LogOutUser] - LogOut
   Future<void> logout() async {
     try {
       //await GoogleSignIn().signOut();
