@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:t_store/common/widgets/loaders/loaders.dart';
 import 'package:t_store/data/repositories/authentication/authentication.repository.dart';
 import 'package:t_store/features/authentication/controllers/network/network_manager.dart';
+import 'package:t_store/features/personalization/controllers/user_controllers.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/popups/full_screen_loader.dart';
 
@@ -16,6 +17,7 @@ class LoginController extends GetxController {
   final password = TextEditingController();
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final userController = Get.put(UserController());
 
   @override
   void onInit() {
@@ -64,7 +66,7 @@ class LoginController extends GetxController {
     }
   }
 
-  /// -- Google Sign in
+  /// -- Google Signin
   Future<void> googleSignIn() async {
     try {
       TFullScreenLoader.openLoadingDialog('Logging you in...', TImages.loading);
@@ -77,10 +79,11 @@ class LoginController extends GetxController {
       }
 
       // Google authentication
-      // final userCredential = await AuthenticationRepository.instance.signInWithGoogle();
+      final userCredential =
+          await AuthenticationRepository.instance.signInWithGoogle();
 
-      // save User Record
-      //await userController.saveUserRecord(userCredential);
+      // Save User Record
+      await userController.saveUserRecord(userCredential);
 
       TFullScreenLoader.stopLoading();
 
