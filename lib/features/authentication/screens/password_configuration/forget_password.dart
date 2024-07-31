@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/features/authentication/screens/password_configuration/reset_password.dart';
+import 'package:t_store/features/authentication/controllers/forget_password/forget_password_controller.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/validators/validator.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -30,10 +32,15 @@ class ForgetPasswordScreen extends StatelessWidget {
             const SizedBox(height: TSizes.spaceBtwSections * 2),
 
             /// Text field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: TTexts.email,
-                prefixIcon: Icon(Iconsax.direct_right),
+            Form(
+              key: controller.forgetPasswordFromKey,
+              child: TextFormField(
+                controller: controller.email,
+                validator: TValidators.validateEmail,
+                decoration: const InputDecoration(
+                  labelText: TTexts.email,
+                  prefixIcon: Icon(Iconsax.direct_right),
+                ),
               ),
             ),
             const SizedBox(height: TSizes.spaceBtwSections),
@@ -42,7 +49,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Get.off(() => const ResetPasswordScreen()),
+                onPressed: () => controller.sendPasswordResetEmail(),
                 child: const Text(TTexts.submit),
               ),
             ),
