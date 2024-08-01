@@ -75,8 +75,8 @@ class UserModel {
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
       );
+    } else {
+      return UserModel.empty();
     }
-
-    return empty();
   }
 }
