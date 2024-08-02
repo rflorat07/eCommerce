@@ -46,6 +46,7 @@ class ProfileScreen extends StatelessWidget {
                                 image: image,
                                 width: 80,
                                 height: 80,
+                                padding: 0,
                                 isNetworkImage: networkImage.isNotEmpty);
                       },
                     ),
