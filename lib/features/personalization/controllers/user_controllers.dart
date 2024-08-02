@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:t_store/common/widgets/loaders/loaders.dart';
 import 'package:t_store/data/repositories/authentication/authentication.repository.dart';
 import 'package:t_store/data/repositories/user/user_repository.dart';
@@ -19,6 +20,7 @@ class UserController extends GetxController {
   Rx<UserModel> user = UserModel.empty().obs;
 
   final hidePassword = false.obs;
+  final imageUploading = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
   final userRepository = Get.put(UserRepository());
@@ -43,29 +45,34 @@ class UserController extends GetxController {
     }
   }
 
-  // save user record with any registration provider
+  // save user record with any Registration provider
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {
-      if (userCredential != null) {
-        // convert the Name First and Last Name
-        final nameParts =
-            UserModel.nameParts(userCredential.user!.displayName ?? '');
-        final userParts =
-            UserModel.generateUsername(userCredential.user!.displayName ?? '');
+      // First Update Rx User and then chech if user data is already stored. If not store new data
+      await fetchUserRecord();
 
-        // Map Data
-        final user = UserModel(
-            id: userCredential.user!.uid,
-            firstName: nameParts[0],
-            lastName:
-                nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
-            username: userParts,
-            email: userCredential.user!.email ?? '',
-            phoneNumber: userCredential.user!.phoneNumber ?? '',
-            profilePicture: userCredential.user!.photoURL ?? '');
+      if (user.value.id.isEmpty) {
+        if (userCredential != null) {
+          // convert the Name First and Last Name
+          final nameParts =
+              UserModel.nameParts(userCredential.user!.displayName ?? '');
+          final userParts = UserModel.generateUsername(
+              userCredential.user!.displayName ?? '');
 
-        // save user Data
-        await userRepository.saveUserRecord(user);
+          // Map Data
+          final user = UserModel(
+              id: userCredential.user!.uid,
+              firstName: nameParts[0],
+              lastName:
+                  nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
+              username: userParts,
+              email: userCredential.user!.email ?? '',
+              phoneNumber: userCredential.user!.phoneNumber ?? '',
+              profilePicture: userCredential.user!.photoURL ?? '');
+
+          // save user Data
+          await userRepository.saveUserRecord(user);
+        }
       }
     } catch (e) {
       TLoaders.warningSnackBar(
@@ -157,6 +164,38 @@ class UserController extends GetxController {
       // Remove Loader
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  /// Upload Profile Image
+  uploadUserProfilePicture() async {
+    try {
+      final image = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 70,
+          maxHeight: 512,
+          maxWidth: 512);
+      if (image != null) {
+        imageUploading.value = true;
+        // Upload Image
+        final imageUrl =
+            await userRepository.uploadImage('Users/Images/Profile', image);
+
+        // Update User Image Record
+        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
+        await userRepository.updateSingleField(json);
+
+        user.value.profilePicture = imageUrl;
+        user.refresh();
+        TLoaders.successSnackBar(
+            title: 'Congratulations',
+            message: 'Your Profile Image has been updated!');
+      }
+    } catch (e) {
+      TLoaders.errorSnackBar(
+          title: 'Oh Snap!', message: 'Something went wrong: $e');
+    } finally {
+      imageUploading.value = false;
     }
   }
 }
